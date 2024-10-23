@@ -16,11 +16,11 @@ class App extends StatelessWidget {
       home: MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => NavigationBloc()),
-          BlocProvider(create: (context) => MovieBloc()
+          BlocProvider(create: (context) => FilmBloc()
               // .add(LoadMovies())
           ),
         ],
-        child: CurrentStackWidget(),
+        child: Project(),
       ),
       debugShowCheckedModeBanner: false,
     );

@@ -1,40 +1,55 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart' as http;
-import 'package:watch_movie/Models/movie_model.dart';
 import 'dart:convert';
+import 'dart:math' as math;
+import 'package:http/http.dart' as http;
 
-import 'package:watch_movie/Movie_BLoC/movie_event.dart';
-import 'package:watch_movie/Movie_BLoC/movie_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../Models/movie_model.dart';
+import 'movie_event.dart';
+import 'movie_state.dart';
 
+class FilmBloc extends Bloc<FilmEvent, FilmState> {
+  final String apiKey = '82JG65D-Q2H4N4Y-PRQM2CJ-DA862M7';
 
-class MovieBloc extends Bloc<MovieEvent, MovieState> {
-  MovieBloc() : super(MovieState(movies: [], currentIndex: 0)) {
-    on<LoadMovies>((event, emit) async {
-      final movies = await fetchMovies();
-      emit(MovieState(movies: movies, currentIndex: 0));
-    });
-
-    on<ChangeMovie>((event, emit) {
-      final newIndex = (state.currentIndex + event.direction) % state.movies.length;
-      emit(MovieState(movies: state.movies, currentIndex: newIndex));
-    });
+  FilmBloc() : super(FilmState(isLoading: true, films: [])) {
+    on<FetchRandomFilm>(_onFetchRandomFilm);
+    add(FetchRandomFilm());
   }
 
-  Future<List<Movie>> fetchMovies() async {
-    const String apiKey = 'E9R3QQD-6YG4VTP-NVEJHG7-NPZ96JK';
-    const String url = 'https://kinopoisk.dev/api/v1.4/movie/search?apikey=$apiKey';
-    // const String apiKey = 'E9R3QQD-6YG4VTP-NVEJHG7-NPZ96JK';
-    // const String baseUrl = 'https://kinopoisk.dev/api/v2.2/films/search';
-    // final String searchUrl = '$baseUrl?apikey=$apiKey&query=${Uri.encodeComponent(query)}';
+  Future<void> _onFetchRandomFilm(
+      FetchRandomFilm event, Emitter<FilmState> emit) async {
+    emit(FilmState(isLoading: true, films: []));
+    try {
+      final response = await http.get(
+        Uri.parse('https://api.kinopoisk.dev/v1.4/movie'),
+        headers: {'X-API-KEY': apiKey},
+      );
 
-    final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        List<Film> rots = <Film>[];
+        final docs = json.decode(response.body) as Map<String, dynamic>;
+        final films = docs["docs"];
 
-    if (response.statusCode == 200) {
-      final List<dynamic> json = jsonDecode(response.body);
-      return json.map((movie) => Movie.fromJson(movie)).toList();
-    } else {
-      throw Exception('Failed to load movies');
+        for (int i = 0; i < films.length; i++) {
+          final name = films[i]["name"];
+          final description =  films[i]["description"];
+          final poster =  films[i]["poster"];
+          if (name != null && description != null && poster != null) {
+            rots.add(Film(
+              id: films[i]['id'].toString(),
+              name: films[i]['name'],
+              description: films[i]['description'],
+              poster: films[i]['poster']['url'],
+            ),
+            );
+          }
+        }
+        // final randomFilm = rots[math.Random().nextInt(rots.length)];
+        emit(FilmState(films: rots, isLoading: false));
+      }
+    } catch (e) {
+      print(e);
+      emit(FilmState(isLoading: false, films: []));
     }
   }
 }

@@ -1,8 +1,8 @@
-import 'package:watch_movie/Models/movie_model.dart';
+import '../Models/movie_model.dart';
 
-class MovieState {
-  final List<Movie> movies;
-  final int currentIndex;
+class FilmState {
+  final List<Film> films;
+  final bool isLoading;
 
-  MovieState({required this.movies, required this.currentIndex});
+  FilmState({required this.films, this.isLoading = false});
 }

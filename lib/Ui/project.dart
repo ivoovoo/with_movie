@@ -15,7 +15,7 @@ class Project extends StatelessWidget {
         if (state is NavigateToScreenA) {
           return const HomeWidget();
         } else if (state is NavigateToScreenB) {
-          return  CurrentStackWidget();
+          return  FilmScreen();
         }
         // else if (state is NavigateToScreenC) {
         //   return const Subscription();

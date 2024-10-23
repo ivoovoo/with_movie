@@ -1,18 +1,19 @@
-class Movie {
-  final String title;
+class Film {
+  final String id;
+  final String name;
   final String description;
   final String poster;
-  final String trailer;
 
-  Movie({required this.title, required this.description, required this.poster, required this.trailer});
+  Film({required this.id, required this.name, required this.description, required this.poster});
 
-  factory Movie.fromJson(Map<String, dynamic> json) {
-    return Movie(
-      title: json['name'],
-      description: json['description'],
-      poster: json['poster'],
-      trailer: json['trailer'],
+  factory Film.fromJson(Map<String, dynamic> json) {
+    return Film(
+      id: json['id'].toString(),
+      name: json['name'],
+      description: json['description'] ?? 'Описание отсутствует',
+      poster: json['poster']['url'],
     );
   }
 }
+
 
