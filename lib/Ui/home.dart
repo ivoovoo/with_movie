@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:watch_movie/Theme/theme.dart';
-import 'package:watch_movie/Widgets/row_films.dart';
+import 'package:watch_movie/Models/row_films.dart';
 import '../Movie_BLoC/movie_bloc.dart';
 import '../Movie_BLoC/movie_state.dart';
 import '../Widgets/nav_bar.dart';
@@ -42,7 +42,6 @@ class _HomeWidgetState extends State<HomeWidget> {
       _color2 = _colors[random.nextInt(_colors.length)];
     }
 
-    // Запланировать изменение цветов через 2 секунды
     Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         _changeColors();
@@ -134,4 +133,5 @@ class _HomeWidgetState extends State<HomeWidget> {
     );
   }
 }
+
 

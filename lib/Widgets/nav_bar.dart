@@ -34,7 +34,9 @@ class NavBarWidget extends StatelessWidget {
             child: SvgPicture.asset('Assets/navbar.svg'),
           ),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              context.read<NavigationBloc>().add(GoToScreenC());
+            },
             child: SvgPicture.asset('Assets/nav.svg'),
           ),
         ],

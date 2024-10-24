@@ -7,6 +7,9 @@ import 'package:watch_movie/Ui/home.dart';
 import 'package:watch_movie/Ui/project.dart';
 import 'package:watch_movie/Ui/stack.dart';
 
+import 'Models/film_for_grid.dart';
+import 'Ui/list_of_films.dart';
+
 class App extends StatelessWidget {
   const App({super.key});
 
@@ -20,7 +23,7 @@ class App extends StatelessWidget {
               // .add(LoadMovies())
           ),
         ],
-        child: Project(),
+        child: ListOfFilms(),
       ),
       debugShowCheckedModeBanner: false,
     );

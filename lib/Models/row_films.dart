@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:watch_movie/Widgets/watch_now_button.dart';
 
-import '../Models/movie_model.dart';
+import 'movie_model.dart';
 
 class FilmRow extends StatelessWidget {
   const FilmRow({

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:watch_movie/Navigation_BLoC/navigation_bloc.dart';
 import 'package:watch_movie/Navigation_BLoC/navigation_state.dart';
 import 'package:watch_movie/Ui/home.dart';
+import 'package:watch_movie/Ui/list_of_films.dart';
 import 'package:watch_movie/Ui/stack.dart';
 
 class Project extends StatelessWidget {
@@ -17,9 +18,9 @@ class Project extends StatelessWidget {
         } else if (state is NavigateToScreenB) {
           return  FilmScreen();
         }
-        // else if (state is NavigateToScreenC) {
-        //   return const Subscription();
-        // }
+        else if (state is NavigateToScreenC) {
+          return const ListOfFilms();
+        }
         return const Center(
           child: Text('error'),
         );

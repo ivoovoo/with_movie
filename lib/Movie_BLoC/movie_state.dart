@@ -6,3 +6,4 @@ class FilmState {
 
   FilmState({required this.films, this.isLoading = false});
 }
+

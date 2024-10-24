@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:watch_movie/Models/movie_model.dart';
 import 'package:watch_movie/Widgets/nav_bar.dart';
 import '../Movie_BLoC/movie_bloc.dart';
 import '../Movie_BLoC/movie_state.dart';
-import '../Widgets/row_column.dart';
+import '../Models/row_column.dart';
 
 class FilmScreen extends StatelessWidget {
   @override
