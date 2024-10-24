@@ -23,7 +23,7 @@ class App extends StatelessWidget {
               // .add(LoadMovies())
           ),
         ],
-        child: ListOfFilms(),
+        child: Project(),
       ),
       debugShowCheckedModeBanner: false,
     );
